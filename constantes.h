@@ -19,7 +19,7 @@
     #define TAILLE_BLOC_H       92
     #define TAILLE_BLOC_L       88
     #define NB_BLOCS_LARGEUR    16
-    #define NB_BLOCS_HAUTEUR    9
+    #define NB_BLOCS_HAUTEUR    10
     #define LARGEUR_FENETRE     TAILLE_BLOC_L * NB_BLOCS_LARGEUR
     #define HAUTEUR_FENETRE     TAILLE_BLOC_H * (NB_BLOCS_HAUTEUR + 1)
     #define HAUTEUR_BG          TAILLE_BLOC_H * NB_BLOCS_HAUTEUR
@@ -35,7 +35,7 @@
     /** \enum bloc
     * \brief �numeration des status possibles d'un bloc
     */
-    enum bloc {EMPTY=0, WALL=1, ROCK=2, BUSH=3, CHEST=4, DOOROPEN=5, DOORCLOSE=6, WOLPHY=7, FOXY=8};
+    enum bloc {EMPTY=0, WALL=1, ROCK=2, BUSH=3, CHEST=4, KEY=5, DRAGON=6, DOOROPEN=7, DOORCLOSE=8, WOLPHY=9, FOXY=10};
 
 
     enum etats {IN_PROGRESS, WIN, FAIL};

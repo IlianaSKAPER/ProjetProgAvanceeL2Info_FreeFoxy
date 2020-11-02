@@ -1,6 +1,8 @@
 #include <time.h>
 
 #include "affichage_SDL.h"
+#include "data_init.h"
+#include "fonctions_fichiers.h"
 
 
 
@@ -12,6 +14,7 @@ int main(int argc, char *argv[]){
     clock_t start_t, end_t, diff_t;
     double t;
     int i = 0;
+    int** map = allouer_tab_2D_int(NB_BLOCS_LARGEUR, NB_BLOCS_HAUTEUR);
 
 
 
@@ -63,12 +66,20 @@ int main(int argc, char *argv[]){
     fond[GREYFLOOR] = charger_fond_uni(ecran, greyfloor_color);
     fond[DARKNESS] = charger_fond_uni(ecran, darkness_color);
     */
-    fond[WHITE] = charger_fond_uni_rgb(ecran, 0, 0, 0);
+    fond[WHITE] = charger_fond_uni_rgb(ecran, 255, 255, 255);
     fond[GRASS] = charger_fond_uni_rgb(ecran, 62, 72, 35);
     fond[GREYFLOOR] = charger_fond_uni_rgb(ecran, 195, 195, 195);
     fond[DARKNESS] = charger_fond_uni_rgb(ecran, 68, 68, 68);
 
     SDL_Texture* wolfy_sprite = charger_image_transparente_rgb("img/wolfy.bmp", ecran, 255, 0, 255);
+
+
+    //test chargement map
+    load_level(1, map);
+    print_map(map);
+    printf("\n");
+    load_level(2, map);
+    print_map(map);
     
 
 
@@ -82,8 +93,6 @@ int main(int argc, char *argv[]){
         } else {
             SDL_RenderCopy(ecran, fond[GRASS], NULL, NULL);
         }
-        
-
         i++;
 
         //accueil();
