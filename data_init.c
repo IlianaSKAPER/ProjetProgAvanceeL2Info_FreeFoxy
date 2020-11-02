@@ -5,6 +5,7 @@ void load_level (int level, int** map) {
     FILE* fichierNiveau;
     char** rawMap = allouer_tab_2D(NB_BLOCS_LARGEUR, NB_BLOCS_HAUTEUR);
 
+    // ouverture du bon fichier
     if(level == 1) {
         fichierNiveau = fopen("niveau1.lvl", "r");
     } else if (level == 2) {
@@ -19,15 +20,16 @@ void load_level (int level, int** map) {
     }
         
 
+    // lecture du fichier et copie dans rawMap (char)
     for(int j=0; j<NB_BLOCS_HAUTEUR; j++) {
         for(int i=0; i< NB_BLOCS_LARGEUR; i++) {
-            fscanf( fichierNiveau, "%c" , &rawMap[i][j]);
+            fscanf( fichierNiveau, " %c" , &rawMap[i][j]);
         }
     }
 
     print_map_char(rawMap);
 
-    /*
+    
     for(int j = 0; j<NB_BLOCS_HAUTEUR; j++) {
         for(int i = 0; i<NB_BLOCS_LARGEUR; i++) {
             if(rawMap[i][j] == '#')
@@ -47,7 +49,7 @@ void load_level (int level, int** map) {
             if(rawMap[i][j] == 'P')
                 map[i][j] = DOORCLOSE;
         }
-    }*/
+    }
 
     if(fclose(fichierNiveau)) {
         printf("erreur fermeture fichier niveau");
@@ -70,4 +72,48 @@ void print_map_char(char** map) {
         }
         printf("\n");
     }
+}
+
+void analyse_map(int** map, nb_elements* nb_el){
+    setZeroNBElements(nb_el);
+    for(int j = 0; j<NB_BLOCS_HAUTEUR; j++) {
+        for(int i = 0; i<NB_BLOCS_LARGEUR; i++) {
+            switch (map[i][j]){
+                case WALL : 
+                (nb_el->walls)++;
+                break;
+                case ROCK :
+                (nb_el->rocks)++;
+                break;
+                case BUSH :
+                (nb_el->bushes)++;
+                break;
+                case CHEST :
+                (nb_el->chests)++;
+                break;
+                case KEY :
+                (nb_el->keys)++;
+                break;
+                case DRAGON :
+                (nb_el->dragons)++;
+                break;
+                case DOORCLOSE :
+                (nb_el->doors)++;
+                break;
+                case FOXY :
+                (nb_el->foxy)++;                
+            }
+        }
+    }
+}
+
+void setZeroNBElements(nb_elements* nb){
+    nb->walls = 0;
+    nb->rocks = 0;
+    nb->bushes = 0;
+    nb->chests = 0;
+    nb->keys = 0;
+    nb->dragons = 0;
+    nb->doors = 0;
+    nb->foxy = 0;
 }

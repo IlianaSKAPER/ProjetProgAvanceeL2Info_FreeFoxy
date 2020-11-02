@@ -11,6 +11,18 @@
 #include "constantes.h"
 #include "fonctions_fichiers.h"
 
+typedef struct nb_elements{
+    int walls;
+    int rocks;
+    int bushes;
+    int chests;
+    int keys;
+    int dragons;
+    int doors;
+    int foxy;
+} nb_elements;
+
+
 void load_level (int level, int** map);
 
 void print_map(int** map);

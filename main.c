@@ -15,6 +15,7 @@ int main(int argc, char *argv[]){
     double t;
     int i = 0;
     int** map = allouer_tab_2D_int(NB_BLOCS_LARGEUR, NB_BLOCS_HAUTEUR);
+    //nb_elements nb_el = malloc(sizeof(nb_elements));
 
 
 
