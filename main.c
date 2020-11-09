@@ -3,6 +3,8 @@
 #include "affichage_SDL.h"
 #include "data_init.h"
 #include "fonctions_fichiers.h"
+#include "affichage_SDL.h"
+#include "affichage_jeu.h"
 
 
 
@@ -15,7 +17,7 @@ int main(int argc, char *argv[]){
     double t;
     int i = 0;
     int** map = allouer_tab_2D_int(NB_BLOCS_LARGEUR, NB_BLOCS_HAUTEUR);
-    //nb_elements nb_el = malloc(sizeof(nb_elements));
+    nb_elements* nb_el = malloc(sizeof(nb_elements));
 
 
 
@@ -38,8 +40,8 @@ int main(int argc, char *argv[]){
         return EXIT_FAILURE;
     }
 
-    SDL_Renderer* ecran;
-    ecran = SDL_CreateRenderer(window, -1,  SDL_RENDERER_ACCELERATED);
+    SDL_Renderer* renderer;
+    renderer = SDL_CreateRenderer(window, -1,  SDL_RENDERER_ACCELERATED);
 
 
 
@@ -57,44 +59,36 @@ int main(int argc, char *argv[]){
 
     // ------- Chargement des textures ------------
 
-    SDL_Texture* fond[NB_COLORS];
-    for (int i = 0; i<NB_COLORS; i++) {
-        fond[i] = malloc(sizeof(SDL_Texture*));
-    }
-    /*
-    fond[WHITE] = charger_fond_uni(ecran, white_color);
-    fond[GRASS] = charger_fond_uni(ecran, greengrass_color);
-    fond[GREYFLOOR] = charger_fond_uni(ecran, greyfloor_color);
-    fond[DARKNESS] = charger_fond_uni(ecran, darkness_color);
-    */
-    fond[WHITE] = charger_fond_uni_rgb(ecran, 255, 255, 255);
-    fond[GRASS] = charger_fond_uni_rgb(ecran, 62, 72, 35);
-    fond[GREYFLOOR] = charger_fond_uni_rgb(ecran, 195, 195, 195);
-    fond[DARKNESS] = charger_fond_uni_rgb(ecran, 68, 68, 68);
+    SDL_Texture** fond = charger_background(renderer);
 
-    SDL_Texture* wolfy_sprite = charger_image_transparente_rgb("img/wolfy.bmp", ecran, 255, 0, 255);
+    sprites* sprite = charger_sprites(renderer);
 
 
-    //test chargement map
+    // ---------------- Data ---------------------
+    //niveau 1 (test)
     load_level(1, map);
     print_map(map);
     printf("\n");
-    load_level(2, map);
-    print_map(map);
+    
+    liste** objets = analyse_map(map, nb_el);
+
+    
     
 
 
     // -----  Boucle principale ---------------
     while(run){
         start_t = clock();
-        SDL_RenderClear(ecran);
+        SDL_RenderClear(renderer);
+        apply_textures(renderer, fond, sprite, objets, nb_el);
 
+        /*
         if(i%2) {
-            SDL_RenderCopy(ecran, fond[WHITE], NULL, NULL);
+            SDL_RenderCopy(rendere, fond[WHITE], NULL, NULL);
         } else {
-            SDL_RenderCopy(ecran, fond[GRASS], NULL, NULL);
+            SDL_RenderCopy(renderer, fond[GRASS], NULL, NULL);
         }
-        i++;
+        i++;*/
 
         //accueil();
 
@@ -117,7 +111,7 @@ int main(int argc, char *argv[]){
 
         //gestionEvents();
 
-        SDL_RenderPresent(ecran);
+        SDL_RenderPresent(renderer);
 
         end_t = clock();
         diff_t = end_t - start_t;
@@ -130,12 +124,12 @@ int main(int argc, char *argv[]){
     for(int i = 0; i<NB_COLORS; i++) {
         SDL_DestroyTexture(fond[i]) ;
     }
-    SDL_DestroyTexture(wolfy_sprite);
+    destroy_textures(sprite);
     // Fermer la police et quitter SDL_ttf
     //TTF_CloseFont( font );
     TTF_Quit();
     // Libération de l’écran (renderer)
-    SDL_DestroyRenderer(ecran);
+    SDL_DestroyRenderer(renderer);
     // Quitter SDL
     SDL_DestroyWindow(window);
     SDL_Quit();

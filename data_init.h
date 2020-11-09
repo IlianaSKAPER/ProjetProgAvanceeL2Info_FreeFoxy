@@ -46,6 +46,8 @@ void setZeroNBElements(nb_elements* nb);
 
 liste** create_tabObjets();
 
-void ajouter_element(liste** tab, int obj, int index, int x, int y);
+void ajouter_element(liste** tab, int obj, int x, int y);
+
+liste** analyse_map(int** map, nb_elements* nb_el);
 
 #endif

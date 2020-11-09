@@ -2,6 +2,9 @@
 
 
 
+
+
+
 SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer* renderer) {
     SDL_Surface* surf = SDL_LoadBMP(nomfichier);
     SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
