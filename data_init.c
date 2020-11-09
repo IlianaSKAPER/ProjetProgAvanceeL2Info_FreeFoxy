@@ -56,6 +56,9 @@ void load_level (int level, int** map) {
     }
 }
 
+
+
+
 void print_map(int** map) {
     for(int j = 0; j<NB_BLOCS_HAUTEUR; j++) {
         for(int i = 0; i<NB_BLOCS_LARGEUR; i++) {
@@ -74,37 +77,62 @@ void print_map_char(char** map) {
     }
 }
 
-void analyse_map(int** map, nb_elements* nb_el){
+
+
+
+
+liste** analyse_map(int** map, nb_elements* nb_el){
     setZeroNBElements(nb_el);
+
+    liste** tab = create_tabObjets();
+
     for(int j = 0; j<NB_BLOCS_HAUTEUR; j++) {
         for(int i = 0; i<NB_BLOCS_LARGEUR; i++) {
             switch (map[i][j]){
-                case WALL : 
+                case WALL_OBJ : 
                 (nb_el->walls)++;
+                ajouter_element(tab, WALL_OBJ, nb_el->walls, i, j);
                 break;
-                case ROCK :
+
+                case ROCK_OBJ :
                 (nb_el->rocks)++;
+                ajouter_element(tab, ROCK_OBJ, nb_el->walls, i, j);
                 break;
-                case BUSH :
+
+                case BUSH_OBJ :
                 (nb_el->bushes)++;
+                ajouter_element(tab, BUSH_OBJ, nb_el->walls, i, j);
                 break;
-                case CHEST :
+
+                case CHEST_OBJ :
                 (nb_el->chests)++;
+                ajouter_element(tab, CHEST_OBJ, nb_el->walls, i, j);
                 break;
-                case KEY :
+
+                case KEY_OBJ :
                 (nb_el->keys)++;
+                ajouter_element(tab, KEY_OBJ, nb_el->walls, i, j);
                 break;
-                case DRAGON :
+
+                case DRAGON_OBJ :
                 (nb_el->dragons)++;
+                ajouter_element(tab, DRAGON_OBJ, nb_el->walls, i, j);
                 break;
-                case DOORCLOSE :
+
+                case DOOR_OBJ :
                 (nb_el->doors)++;
+                ajouter_element(tab, DOOR_OBJ, nb_el->walls, i, j);
                 break;
-                case FOXY :
-                (nb_el->foxy)++;                
+
+                case FOXY_OBJ :
+                (nb_el->foxy)++;  
+                ajouter_element(tab, FOXY_OBJ, nb_el->walls, i, j);
+                break;              
             }
         }
     }
+
+    return tab;
 }
 
 void setZeroNBElements(nb_elements* nb){
@@ -117,3 +145,42 @@ void setZeroNBElements(nb_elements* nb){
     nb->doors = 0;
     nb->foxy = 0;
 }
+
+liste** create_tabObjets(){
+    liste** tab = malloc(sizeof(liste*)*NB_OBJETS);
+    return tab;
+}
+
+void ajouter_element(liste** tab, int obj, int index, int x, int y){
+    liste* l = malloc(sizeof(liste));
+    l = tab[obj];
+
+    for(int i = 0; i < index-1; i++){
+        if(l->next != NULL){
+            l = l->next;
+        } else {
+            l->next = malloc(sizeof(liste));
+            l = l->next;
+        }
+    }
+
+    l->element.case_x = x;
+    l->element.case_y = y;
+    l->element.num = obj;
+    l->element.pos_x = x*TAILLE_BLOC_L;
+    l->element.pos_y = y*TAILLE_BLOC_H;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

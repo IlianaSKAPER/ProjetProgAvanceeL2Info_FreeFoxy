@@ -25,6 +25,7 @@
     #define HAUTEUR_BG          TAILLE_BLOC_H * NB_BLOCS_HAUTEUR
     #define HEARTS_MAX          3
     #define NB_COLORS           4
+    #define NB_OBJETS           8
 
 
     /** \enum direction
@@ -36,6 +37,11 @@
     * \brief �numeration des status possibles d'un bloc
     */
     enum bloc {EMPTY=0, WALL=1, ROCK=2, BUSH=3, CHEST=4, KEY=5, DRAGON=6, DOOROPEN=7, DOORCLOSE=8, WOLPHY=9, FOXY=10};
+
+    /** \enum objet_e
+    * \brief �numeration des status possibles d'un bloc
+    */
+    enum objet_e {WALL_OBJ=0, ROCK_OBJ=1, BUSH_OBJ=2, CHEST_OBJ=3, KEY_OBJ=4, DRAGON_OBJ=5, DOOR_OBJ=6, FOXY_OBJ=7};
 
 
     enum etats {IN_PROGRESS, WIN, FAIL};
@@ -56,6 +62,7 @@
     const Uint32 darkness_color = SDL_MapRGB(ecran->format, 68, 68, 68);
     const Uint32 white_color = SDL_Map(ecran->format, 0, 0, 0);
 */
+
 
 
 #endif // CONSTANTES_H_INCLUDED
