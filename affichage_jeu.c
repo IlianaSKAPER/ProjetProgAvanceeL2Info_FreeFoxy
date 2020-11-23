@@ -42,6 +42,18 @@ void apply_textures(SDL_Renderer* renderer, SDL_Texture** fond, sprites* sprite,
     R.y = 0;
     SDL_RenderCopy(renderer, fond[DARKNESS], &R, &R );
 
+    //coeurs
+    SDL_Rect SrcR_heart;
+    SrcR_heart.h = TAILLE_BLOC_H;
+    SrcR_heart.w = TAILLE_BLOC_L;
+    SrcR_heart.x = 0;
+    SrcR_heart.y = 0;
+    SDL_Rect DestR_heart;
+    DestR_heart.h = TAILLE_BLOC_H;
+    DestR_heart.w = TAILLE_BLOC_L;
+
+
+
     //murs
     l = objets[WALL_OBJ];
     SDL_Rect SrcR_wall;

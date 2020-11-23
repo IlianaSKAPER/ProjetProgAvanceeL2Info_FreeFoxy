@@ -1,6 +1,16 @@
 #include "data_init.h"
 
 
+world* init_world(){
+    world* monde = malloc(sizeof(world));
+    monde->gameover = 0;
+    monde->heart = 6;
+    monde->level = 1;
+    monde->wolfy_x = 0;
+    monde->wolfy_y = 0;
+}
+
+
 void load_level (int level, int** map) {
     FILE* fichierNiveau;
     char** rawMap = allouer_tab_2D(NB_BLOCS_LARGEUR, NB_BLOCS_HAUTEUR);

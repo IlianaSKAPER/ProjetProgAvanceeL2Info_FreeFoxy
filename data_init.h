@@ -9,6 +9,7 @@
 #include <stdbool.h>
 
 #include "constantes.h"
+#include "structures.h"
 #include "fonctions_fichiers.h"
 
 typedef struct nb_elements{
